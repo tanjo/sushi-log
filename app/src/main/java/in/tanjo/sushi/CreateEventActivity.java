@@ -5,12 +5,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.ButterKnife;
+import in.tanjo.sushi.model.store.StoreModel;
+
 public class CreateEventActivity extends Activity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_create_event);
+    ButterKnife.bind(this);
+
+    StoreModel storeModel = (StoreModel)getIntent().getSerializableExtra(StoreModel.INTENT_PUT_EXTRA_KEY);
+    if (storeModel != null) {
+      setTitle(storeModel.getName());
+    }
   }
 
   @Override

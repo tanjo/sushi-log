@@ -3,6 +3,7 @@ package in.tanjo.sushi.model.store;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +11,9 @@ import java.util.List;
 import in.tanjo.sushi.model.EventModel;
 import in.tanjo.sushi.model.sushi.SushiModel;
 
-public class StoreModel {
+public class StoreModel implements Serializable {
+  public static final String INTENT_PUT_EXTRA_KEY = "intent_put_extra_key";
+
 
   @SerializedName("name") String mName;                      // 店名
   @SerializedName("date") Date mDate;                        // 来店日

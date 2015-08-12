@@ -2,6 +2,7 @@ package in.tanjo.sushi;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -54,10 +55,16 @@ public class CreateStoreActivity extends Activity {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         StoreModel storeModel = mStoreManager.getStoresModel().getItems().get(position);
         if (storeModel != null) {
-          Toast.makeText(CreateStoreActivity.this, "TODO:次へ遷移", Toast.LENGTH_SHORT).show();
+          next(storeModel);
         }
       }
     });
+  }
+
+  private void next(StoreModel storeModel) {
+    Intent intent = new Intent(this, CreateEventActivity.class);
+    intent.putExtra(StoreModel.INTENT_PUT_EXTRA_KEY, storeModel);
+    startActivity(intent);
   }
 
   private void setupTypeface() {
@@ -69,7 +76,7 @@ public class CreateStoreActivity extends Activity {
 
   @OnClick(R.id.create_store_activity_sakusei_button)
   void sakusei() {
-    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(mSakuseiButton.getWindowToken(), 0);
 
     String tenmei = mTenmeiEdit.getText().toString();
@@ -78,12 +85,12 @@ public class CreateStoreActivity extends Activity {
       mStoreManager.getStoresModel().getItems().add(storeModel);
       mStoreManager.save();
       mStoreManager.restore();
-      StoreAdapter adapter = (StoreAdapter)mOldStoreList.getAdapter();
+      StoreAdapter adapter = (StoreAdapter) mOldStoreList.getAdapter();
       adapter.clear();
       adapter.addAll(mStoreManager.getStoresModel().getItems());
       adapter.notifyDataSetChanged();
       mTenmeiEdit.setText("");
-      Toast.makeText(this, "TODO:次へ遷移", Toast.LENGTH_SHORT).show();
+      next(storeModel);
     } else {
       Toast.makeText(this, "なんか入力しろよ", Toast.LENGTH_SHORT).show();
     }
@@ -100,7 +107,7 @@ public class CreateStoreActivity extends Activity {
     switch (item.getItemId()) {
       case MENU_DELETE_LOG:
         mStoreManager.delete();
-        StoreAdapter adapter = (StoreAdapter)mOldStoreList.getAdapter();
+        StoreAdapter adapter = (StoreAdapter) mOldStoreList.getAdapter();
         adapter.clear();
         adapter.notifyDataSetChanged();
         return true;
@@ -110,7 +117,7 @@ public class CreateStoreActivity extends Activity {
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     inputMethodManager.hideSoftInputFromWindow(mLinearLayout.getWindowToken(), 0);
     return false;
   }
