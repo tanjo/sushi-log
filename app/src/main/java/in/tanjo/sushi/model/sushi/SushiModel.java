@@ -1,5 +1,6 @@
-package in.tanjo.sushi.model;
+package in.tanjo.sushi.model.sushi;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class SushiModel {
@@ -54,4 +55,16 @@ public class SushiModel {
     return (int)Math.floor(mCount * mPerPrice * (1.0 + 0.01 * mPerConsumptionTaxRatio));
   }
 
+  public String toJson() {
+    return new Gson().toJson(this, SushiModel.class);
+  }
+
+  public static SushiModel fromJson(String json) {
+    return new Gson().fromJson(json, SushiModel.class);
+  }
+
+  public static String toJson(SushiModel model) {
+    return new Gson().toJson(model, SushiModel.class);
+  }
+  
 }

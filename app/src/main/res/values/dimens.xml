@@ -6,4 +6,8 @@
     <dimen name="my_activity_title_size">70sp</dimen>
     <dimen name="my_activity_title_margin_top">100dp</dimen>
     <dimen name="my_activity_nyuten_button_top_margin">150dp</dimen>
+    <dimen name="create_store_activity_sakusei_button_margin_top">50dp</dimen>
+    <dimen name="store_list_cell_textview_margin">20dp</dimen>
+    <dimen name="store_list_cell_textview_text_size">25sp</dimen>
+    <dimen name="create_store_activity_old_list_title_view_margin">20dp</dimen>
 </resources>

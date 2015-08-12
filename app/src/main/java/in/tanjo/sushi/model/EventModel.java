@@ -1,8 +1,12 @@
 package in.tanjo.sushi.model;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import in.tanjo.sushi.model.store.StoreModel;
+import in.tanjo.sushi.model.sushi.SushiModel;
 
 public class EventModel {
 
@@ -32,5 +36,17 @@ public class EventModel {
 
   public void setStore(StoreModel store) {
     mStore = store;
+  }
+
+  public String toJson() {
+    return new Gson().toJson(this, EventModel.class);
+  }
+
+  public static EventModel fromJson(String json) {
+    return new Gson().fromJson(json, EventModel.class);
+  }
+
+  public static String toJson(EventModel model) {
+    return new Gson().toJson(model, EventModel.class);
   }
 }
