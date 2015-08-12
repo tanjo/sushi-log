@@ -3,12 +3,14 @@ package in.tanjo.sushi.model;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import in.tanjo.sushi.model.store.StoreModel;
 import in.tanjo.sushi.model.sushi.SushiModel;
 
-public class EventModel {
+public class EventModel implements Serializable {
+  public static final String INTENT_PUT_EXTRA_KEY = "intent_put_extra_event_model_key";
 
   @SerializedName("name") String mName;
   @SerializedName("ate_sushi") List<SushiModel> mSushiList;

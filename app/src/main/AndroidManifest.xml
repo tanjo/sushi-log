@@ -27,6 +27,10 @@
             android:name=".CreateEventActivity"
             android:label="@string/title_activity_create_event" >
         </activity>
+        <activity
+            android:name=".MemoActivity"
+            android:label="@string/title_activity_memo" >
+        </activity>
     </application>
 
 </manifest>

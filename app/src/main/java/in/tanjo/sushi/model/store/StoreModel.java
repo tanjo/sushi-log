@@ -12,7 +12,7 @@ import in.tanjo.sushi.model.EventModel;
 import in.tanjo.sushi.model.sushi.SushiModel;
 
 public class StoreModel implements Serializable {
-  public static final String INTENT_PUT_EXTRA_KEY = "intent_put_extra_key";
+  public static final String INTENT_PUT_EXTRA_KEY = "intent_put_extra_store_model_key";
 
 
   @SerializedName("name") String mName;                      // 店名
@@ -24,6 +24,10 @@ public class StoreModel implements Serializable {
     mSushiList = new ArrayList<SushiModel>();
     mDate = new Date();
     mName = name;
+  }
+
+  public StoreModel() {
+
   }
 
   public String getName() {

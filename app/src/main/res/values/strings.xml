@@ -11,5 +11,6 @@
     <string name="create_store_activity_sakusei">作成</string>
     <string name="create_store_activity_old_list_view">過去のお店</string>
     <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="title_activity_memo">MemoActivity</string>
 
 </resources>
