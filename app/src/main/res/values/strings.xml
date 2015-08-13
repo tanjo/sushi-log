@@ -2,15 +2,12 @@
 <resources>
 
     <string name="app_name">すしメモ</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">設定</string>
-    <string name="my_activity_nyuten">入店する</string>
-    <string name="my_activity_irassyai">いらっしゃい！</string>
-    <string name="title_activity_craete_store">店舗情報の入力</string>
-    <string name="create_store_activity_tenmei">店名</string>
-    <string name="create_store_activity_sakusei">作成</string>
-    <string name="create_store_activity_old_list_view">過去のお店</string>
-    <string name="title_activity_create_event">CreateEventActivity</string>
-    <string name="title_activity_memo">MemoActivity</string>
+    <string name="menu_name">メニュー</string>
+    <string name="title_activity_add_sushi">寿司を追加</string>
+    <string name="sushi_name">寿司の名前</string>
+    <string name="sushi_price">寿司の値段 (円)</string>
+    <string name="finish">完了</string>
+    <string name="add_sushi_activity_name_error">名前入力してください.</string>
 
 </resources>
