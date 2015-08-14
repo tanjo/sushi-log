@@ -12,5 +12,8 @@
     <string name="popup_countable_sushi_model_menu_delete">削除する</string>
     <string name="popup_countable_sushi_menu_plus1">１つ増やす</string>
     <string name="popup_countable_sushi_menu_minus1">１つ減らす</string>
+    <string name="title_activity_edit_note">メモの詳細設定</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

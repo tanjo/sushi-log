@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.tanjo.sushi.model.CountableSushiModel;
 import in.tanjo.sushi.model.NoteManager;
+import in.tanjo.sushi.model.NoteModel;
 import in.tanjo.sushi.model.SushiModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -108,7 +109,29 @@ public class MainActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
     if (resultCode == RESULT_OK) {
       switch (requestCode) {
-        case AddSushiActivity.REQUESTCODE_SUSHI_OBJECT:
+        case EditNoteActivity.REQUESTCODE_NOTE_OBJECT: {
+          Bundle bundle = data.getExtras();
+          NoteModel noteModel = (NoteModel) bundle.getSerializable(EditNoteActivity.BUNDLEKEY_NOTE_OBJECT);
+          if (noteModel != null) {
+            mNoteManager.setActiveNote(noteModel);
+
+            updateMainAdapter();
+
+            final Snackbar snackbar = Snackbar.make(mFrameLayout, "メモを更新しました", Snackbar.LENGTH_LONG);
+            snackbar.setAction("OK", new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                snackbar.dismiss();
+              }
+            });
+            snackbar.show();
+
+            mNoteManager.saveActiveNoteId();
+            NoteManager.saveNote(this, mNoteManager.getActiveNote());
+          }
+          break;
+        }
+        case AddSushiActivity.REQUESTCODE_SUSHI_OBJECT: {
           Bundle bundle = data.getExtras();
           SushiModel sushiModel = (SushiModel) bundle.getSerializable(AddSushiActivity.BUNDLEKEY_SUSHI_MODEL);
           if (sushiModel != null) {
@@ -130,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             NoteManager.saveNote(this, mNoteManager.getActiveNote());
           }
           break;
+        }
       }
     }
   }
@@ -146,12 +170,12 @@ public class MainActivity extends AppCompatActivity {
       Toast.makeText(this, "設定", Toast.LENGTH_SHORT).show();
       return true;
     }
+    if (item.getItemId() == R.id.action_note_edit) {
+      EditNoteActivity.startActivityWithNoteObjectAndRequestCode(this, mNoteManager.getActiveNote());
+      return true;
+    }
     return super.onOptionsItemSelected(item);
   }
 
-  @Override
-  public boolean dispatchKeyEvent(KeyEvent event) {
-    return super.dispatchKeyEvent(event);
-  }
 }
 

@@ -16,11 +16,7 @@ public class NoteModel extends AbsGsonModel {
   @SerializedName("sushi_list") List<CountableSushiModel> mSushiModelList;
 
   public NoteModel() {
-    init(null, null);
-  }
-
-  public NoteModel(StoreModel storeModel, String title) {
-    init(storeModel, title);
+    init(new StoreModel(), "");
   }
 
   private void init(StoreModel storeModel, String title) {

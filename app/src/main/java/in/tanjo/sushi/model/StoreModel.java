@@ -3,13 +3,15 @@ package in.tanjo.sushi.model;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.UUID;
+
 public class StoreModel extends AbsGsonModel {
 
   @SerializedName("id") String mId;
   @SerializedName("name") String mName;
 
   public StoreModel() {
-
+    mId = UUID.randomUUID().toString();
   }
 
   public static String toJson(StoreModel model) {

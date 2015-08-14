@@ -23,6 +23,10 @@
             android:name=".AddSushiActivity"
             android:label="@string/title_activity_add_sushi" >
         </activity>
+        <activity
+            android:name=".EditNoteActivity"
+            android:label="@string/title_activity_edit_note" >
+        </activity>
     </application>
 
 </manifest>
