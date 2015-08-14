@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ public class AddSushiActivity extends AppCompatActivity {
   @Bind(R.id.sushi_name_layout) TextInputLayout mNameTextInputLayout;
   @Bind(R.id.sushi_price) EditText mPriceEditText;
   @Bind(R.id.sushi_price_layout) TextInputLayout mPriceLayout;
+  @Bind(R.id.add_sushi_toolbar) Toolbar mToolbar;
+
 
   @BindString(R.string.add_sushi_activity_name_error) String mNameError;
 
@@ -40,7 +43,7 @@ public class AddSushiActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_sushi);
     ButterKnife.bind(this);
-
+    setSupportActionBar(mToolbar);
   }
 
   @Override

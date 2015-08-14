@@ -1,51 +1,60 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              tools:context="in.tanjo.sushi.EditNoteActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="in.tanjo.sushi.EditNoteActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_note_activity_memo_title_textinputlayout"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/edit_note_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary" />
 
-        <EditText
-            android:id="@+id/edit_note_activity_memo_title_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="タイトル" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_note_activity_store_name_textinputlayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edit_note_activity_store_name_edit"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/edit_note_activity_memo_title_textinputlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="店舗名" />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/edit_note_activity_memo_title_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="タイトル" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_note_activity_description_textinputlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edit_note_activity_description_edit"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/edit_note_activity_store_name_textinputlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="メモ" />
+            android:layout_height="wrap_content">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/edit_note_activity_store_name_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="店舗名" />
 
-</LinearLayout>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/edit_note_activity_description_textinputlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_note_activity_description_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="メモ" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

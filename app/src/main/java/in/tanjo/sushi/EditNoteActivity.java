@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class EditNoteActivity extends AppCompatActivity {
   @Bind(R.id.edit_note_activity_description_textinputlayout) TextInputLayout mDescriptionTextInputLayout;
   @Bind(R.id.edit_note_activity_memo_title_textinputlayout) TextInputLayout mTitleTextInputLayout;
   @Bind(R.id.edit_note_activity_store_name_textinputlayout) TextInputLayout mStoreTextInputLayout;
+  @Bind(R.id.edit_note_toolbar) Toolbar mToolbar;
 
   private NoteModel mNoteModel;
 
@@ -39,6 +41,7 @@ public class EditNoteActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_edit_note);
     ButterKnife.bind(this);
+    setSupportActionBar(mToolbar);
 
     catchNoteModel();
   }

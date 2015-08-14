@@ -3,15 +3,16 @@ package in.tanjo.sushi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import butterknife.Bind;
@@ -23,8 +24,9 @@ import in.tanjo.sushi.model.NoteModel;
 import in.tanjo.sushi.model.SushiModel;
 
 public class MainActivity extends AppCompatActivity {
-  @Bind(R.id.main_framelayout) FrameLayout mFrameLayout;
+  @Bind(R.id.main_relativelayout) RelativeLayout mRelativeLayout;
   @Bind(R.id.main_recycler_view) RecyclerView mRecyclerView;
+  @Bind(R.id.main_toolbar) Toolbar mToolbar;
 
   private NoteManager mNoteManager;
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
+
+    setSupportActionBar(mToolbar);
 
     mNoteManager = new NoteManager(this);
 
@@ -64,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
               case R.id.popup_menu_sushi_delete:
                 mNoteManager.getActiveNote().getSushiModelList().remove(countableSushiModel);
                 updateMainAdapter();
-                final Snackbar snackbar = Snackbar.make(mFrameLayout, countableSushiModel.getName() + "を削除しました", Snackbar.LENGTH_LONG);
+                final Snackbar snackbar = Snackbar.make(mRelativeLayout, countableSushiModel.getName() + "を削除しました", Snackbar.LENGTH_LONG);
                 snackbar.setAction("OK", new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
@@ -117,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
             updateMainAdapter();
 
-            final Snackbar snackbar = Snackbar.make(mFrameLayout, "メモを更新しました", Snackbar.LENGTH_LONG);
+            final Snackbar snackbar = Snackbar.make(mRelativeLayout, "メモを更新しました", Snackbar.LENGTH_LONG);
             snackbar.setAction("OK", new View.OnClickListener() {
               @Override
               public void onClick(View v) {
@@ -140,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
             updateMainAdapter();
 
-            final Snackbar snackbar = Snackbar.make(mFrameLayout, sushiModel.getName() + "を追加しました", Snackbar.LENGTH_LONG);
+            final Snackbar snackbar = Snackbar.make(mRelativeLayout, sushiModel.getName() + "を追加しました", Snackbar.LENGTH_LONG);
             snackbar.setAction("OK", new View.OnClickListener() {
               @Override
               public void onClick(View v) {
