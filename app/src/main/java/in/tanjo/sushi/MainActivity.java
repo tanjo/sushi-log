@@ -2,8 +2,8 @@ package in.tanjo.sushi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +24,13 @@ import in.tanjo.sushi.model.NoteModel;
 import in.tanjo.sushi.model.SushiModel;
 
 public class MainActivity extends AppCompatActivity {
+  private static final float SCROLL_MINIMUM = 25;
+  private int mScrollDist = 0;
+
   @Bind(R.id.main_relativelayout) RelativeLayout mRelativeLayout;
   @Bind(R.id.main_recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.main_toolbar) Toolbar mToolbar;
+  @Bind(R.id.main_floating_action_button) FloatingActionButton mFloatingActionButton;
 
   private NoteManager mNoteManager;
 
@@ -42,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
 
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override
+      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+
+        if (mFloatingActionButton.isShown() && mScrollDist > SCROLL_MINIMUM) {
+          mFloatingActionButton.hide();
+          mScrollDist = 0;
+        } else if (!mFloatingActionButton.isShown() && mScrollDist < -SCROLL_MINIMUM) {
+          mFloatingActionButton.show();
+        }
+
+        if ((mFloatingActionButton.isShown() && dy > 0) || (!mFloatingActionButton.isShown() && dy < 0)) {
+          mScrollDist += dy;
+        }
+      }
+    });
 
     updateMainAdapter();
   }

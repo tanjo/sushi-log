@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import butterknife.Bind;
@@ -44,6 +45,9 @@ public class AddSushiActivity extends AppCompatActivity {
     setContentView(R.layout.activity_add_sushi);
     ButterKnife.bind(this);
     setSupportActionBar(mToolbar);
+
+    getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
   }
 
   @Override
