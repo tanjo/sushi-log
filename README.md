@@ -12,3 +12,6 @@ Resource
 - [Material icons - Google Design #ic_save](https://www.google.com/design/icons/#ic_save)
 - [Material icons - Google Design #ic_more_vert](https://www.google.com/design/icons/#ic_more_vert)
 - [Material icons - Google Design #ic_check](https://www.google.com/design/icons/#ic_check)
+- [Material icons - Google Design #ic_delete](https://www.google.com/design/icons/#ic_delete)
+- [Material icons - Google Design #ic_exposure_plus_1](https://www.google.com/design/icons/#ic_exposure_plus_1)
+- [Material icons - Google Design #ic_exposure_neg_1](https://www.google.com/design/icons/#ic_exposure_neg_1)

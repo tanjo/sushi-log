@@ -40,6 +40,7 @@ public class AddSushiActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_sushi);
     ButterKnife.bind(this);
+
   }
 
   @Override

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class SushiModel extends AbsGsonModel {
+
   @SerializedName("id") String mId;
   @SerializedName("name") String mName;
   @SerializedName("price") int mPrice;
@@ -22,6 +23,14 @@ public class SushiModel extends AbsGsonModel {
 
   public static SushiModel fromJson(String json) {
     return new Gson().fromJson(json, SushiModel.class);
+  }
+
+  public String getId() {
+    return mId;
+  }
+
+  public void setId(String id) {
+    mId = id;
   }
 
   public String getName() {
@@ -44,7 +53,7 @@ public class SushiModel extends AbsGsonModel {
     if (mPrice > 0) {
       return String.valueOf(mPrice) + "円";
     } else {
-      return "プライスレス";
+      return " - 円";
     }
   }
 }

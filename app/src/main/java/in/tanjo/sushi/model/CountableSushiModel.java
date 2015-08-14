@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
 public class CountableSushiModel extends SushiModel {
+
   @SerializedName("count") int mCount;
 
   public CountableSushiModel() {
@@ -25,5 +26,21 @@ public class CountableSushiModel extends SushiModel {
 
   public static CountableSushiModel fromJson(String json) {
     return new Gson().fromJson(json, CountableSushiModel.class);
+  }
+
+  public int getCount() {
+    return mCount;
+  }
+
+  public void setCount(int count) {
+    mCount = count;
+  }
+
+  public String getCountText() {
+    if (mCount > 0) {
+      return String.valueOf(mCount) + "貫";
+    } else {
+      return null;
+    }
   }
 }
