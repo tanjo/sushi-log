@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
+    setSupportActionBar(mToolbar);
+
     mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
@@ -49,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "メモ一覧を表示予定", Toast.LENGTH_SHORT).show();
       }
     });
-    setSupportActionBar(mToolbar);
 
     mNoteManager = new NoteManager(this);
 
