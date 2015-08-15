@@ -41,15 +41,14 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
 
-    mToolbar.setLogo(R.drawable.ic_launcher);
-//    mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-//    mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View v) {
-//        // TODO: 出ないので対策を考える.
-//        Toast.makeText(MainActivity.this, "メモ一覧を表示予定", Toast.LENGTH_SHORT).show();
-//      }
-//    });
+    mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+    mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        // TODO: 出ないので対策を考える.
+        Toast.makeText(MainActivity.this, "メモ一覧を表示予定", Toast.LENGTH_SHORT).show();
+      }
+    });
     setSupportActionBar(mToolbar);
 
     mNoteManager = new NoteManager(this);

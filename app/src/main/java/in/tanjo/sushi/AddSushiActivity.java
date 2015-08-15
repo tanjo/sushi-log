@@ -44,7 +44,6 @@ public class AddSushiActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_add_sushi);
     ButterKnife.bind(this);
-    mToolbar.setLogo(R.drawable.ic_launcher);
     setSupportActionBar(mToolbar);
 
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);

@@ -41,7 +41,6 @@ public class EditNoteActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_edit_note);
     ButterKnife.bind(this);
-    mToolbar.setLogo(R.drawable.ic_launcher);
     setSupportActionBar(mToolbar);
 
     catchNoteModel();
