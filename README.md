@@ -1,6 +1,9 @@
 すしメモ
 =======
 
+![](web_hi_res_512.png)
+
+
 みんなで寿司を食べるときに自分が食べた寿司、もしくは自分が食べる予定の寿司をメモしておくアプリ.
 
 Resource
@@ -15,3 +18,4 @@ Resource
 - [Material icons - Google Design #ic_exposure_plus_1](https://www.google.com/design/icons/#ic_exposure_plus_1)
 - [Material icons - Google Design #ic_exposure_neg_1](https://www.google.com/design/icons/#ic_exposure_neg_1)
 - [Material icons - Google Design #ic_menu](https://www.google.com/design/icons/#ic_menu)
+- [Android Asset Studio - Icon Generator - Launcher icons](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html)
