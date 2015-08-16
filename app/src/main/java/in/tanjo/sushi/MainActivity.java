@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -29,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
   private static final float SCROLL_MINIMUM = 25;
   private int mScrollDist = 0;
 
-  @Bind(R.id.main_relativelayout) RelativeLayout mRelativeLayout;
+  @Bind(R.id.main_drawerlayout) DrawerLayout mDrawerLayout;
   @Bind(R.id.main_recycler_view) RecyclerView mRecyclerView;
   @Bind(R.id.main_toolbar) Toolbar mToolbar;
   @Bind(R.id.main_floating_action_button) FloatingActionButton mFloatingActionButton;
+  @Bind(R.id.navigation_drawer) LinearLayout mDrawer;
+  @Bind(R.id.navigation_recycler_view) RecyclerView mNavigationRecyclerView;
 
   private NoteManager mNoteManager;
 
@@ -48,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        // TODO: 出ないので対策を考える.
-        Toast.makeText(MainActivity.this, "メモ一覧を表示予定", Toast.LENGTH_SHORT).show();
+        mDrawerLayout.openDrawer(mDrawer);
       }
     });
 
@@ -100,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
               case R.id.popup_menu_sushi_delete:
                 mNoteManager.getActiveNote().getSushiModelList().remove(countableSushiModel);
                 updateMainAdapter();
-                final Snackbar snackbar = Snackbar.make(mRelativeLayout, countableSushiModel.getName() + "を削除しました", Snackbar.LENGTH_LONG);
+                final Snackbar snackbar = Snackbar.make(mDrawerLayout, countableSushiModel.getName() + "を削除しました", Snackbar.LENGTH_LONG);
                 snackbar.setAction("OK", new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
             updateMainAdapter();
 
-            final Snackbar snackbar = Snackbar.make(mRelativeLayout, "メモを更新しました", Snackbar.LENGTH_LONG);
+            final Snackbar snackbar = Snackbar.make(mDrawerLayout, "メモを更新しました", Snackbar.LENGTH_LONG);
             snackbar.setAction("OK", new View.OnClickListener() {
               @Override
               public void onClick(View v) {
@@ -176,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
             updateMainAdapter();
 
-            final Snackbar snackbar = Snackbar.make(mRelativeLayout, sushiModel.getName() + "を追加しました", Snackbar.LENGTH_LONG);
+            final Snackbar snackbar = Snackbar.make(mDrawerLayout, sushiModel.getName() + "を追加しました", Snackbar.LENGTH_LONG);
             snackbar.setAction("OK", new View.OnClickListener() {
               @Override
               public void onClick(View v) {
