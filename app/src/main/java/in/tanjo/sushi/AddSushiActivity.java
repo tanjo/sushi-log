@@ -27,8 +27,7 @@ public class AddSushiActivity extends AppCompatActivity {
   @Bind(R.id.sushi_price_layout) TextInputLayout mPriceLayout;
   @Bind(R.id.add_sushi_toolbar) Toolbar mToolbar;
 
-
-  @BindString(R.string.add_sushi_activity_name_error) String mNameError;
+  @BindString(R.string.add_sushi_activity_name_error) String mNameErrorMessage;
 
   public static Intent newInstance(Context activity) {
     return new Intent(activity, AddSushiActivity.class);
@@ -47,7 +46,6 @@ public class AddSushiActivity extends AppCompatActivity {
     setSupportActionBar(mToolbar);
 
     getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-
   }
 
   @Override
@@ -96,7 +94,7 @@ public class AddSushiActivity extends AppCompatActivity {
       setSushiResult(sushiModel);
       finish();
     } else {
-      mNameTextInputLayout.setError(mNameError);
+      mNameTextInputLayout.setError(mNameErrorMessage);
     }
   }
 }

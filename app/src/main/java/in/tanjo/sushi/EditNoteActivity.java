@@ -46,6 +46,22 @@ public class EditNoteActivity extends AppCompatActivity {
     catchNoteModel();
   }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_edit_note, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == R.id.action_note_input_complete) {
+      complete();
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
   private void catchNoteModel() {
     Intent intent = getIntent();
     if (intent != null) {
@@ -68,20 +84,12 @@ public class EditNoteActivity extends AppCompatActivity {
     }
   }
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_edit_note, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_note_input_complete) {
-      complete();
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
+  private void complete() {
+    mNoteModel.getStoreModel().setName(mStoreEditText.getText().toString());
+    mNoteModel.setTitle(mTitleEditText.getText().toString());
+    mNoteModel.setDescription(mDescriptionEditText.getText().toString());
+    setNoteResult(mNoteModel);
+    finish();
   }
 
   private void setNoteResult(NoteModel noteModel) {
@@ -92,13 +100,5 @@ public class EditNoteActivity extends AppCompatActivity {
       data.putExtras(bundle);
       setResult(RESULT_OK, data);
     }
-  }
-
-  private void complete() {
-    mNoteModel.getStoreModel().setName(mStoreEditText.getText().toString());
-    mNoteModel.setTitle(mTitleEditText.getText().toString());
-    mNoteModel.setDescription(mDescriptionEditText.getText().toString());
-    setNoteResult(mNoteModel);
-    finish();
   }
 }

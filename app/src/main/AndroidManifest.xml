@@ -27,6 +27,10 @@
             android:name=".EditNoteActivity"
             android:label="@string/title_activity_edit_note" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
 
 </manifest>

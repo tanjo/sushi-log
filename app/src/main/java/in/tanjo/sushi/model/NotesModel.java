@@ -7,7 +7,7 @@ import java.util.List;
 
 public class NotesModel extends AbsGsonModel {
 
-  @SerializedName("ids") List<String> mIds;
+  @SerializedName("notes") List<AbsNoteModel> mNotes;
 
   public NotesModel() {
   }
@@ -20,11 +20,11 @@ public class NotesModel extends AbsGsonModel {
     return new Gson().fromJson(json, NotesModel.class);
   }
 
-  public List<String> getIds() {
-    return mIds;
+  public List<AbsNoteModel> getNotes() {
+    return mNotes;
   }
 
-  public void setIds(List<String> ids) {
-    mIds = ids;
+  public void setNotes(List<AbsNoteModel> notes) {
+    mNotes = notes;
   }
 }

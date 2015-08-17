@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class NoteManager {
 
@@ -24,7 +25,7 @@ public class NoteManager {
 
   public NoteManager(Context context) {
     mContext = context;
-    restoreNoteIds();
+    restoreNoteList();
     restoreActiveNoteId();
   }
 
@@ -57,13 +58,18 @@ public class NoteManager {
     SharedPreferences sp = mContext.getSharedPreferences(NOTE_MODEL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     if (mActiveNote != null && mActiveNote.getId() != null) {
       sp.edit().putString(ACTIVE_NOTE_MODEL_KEY, mActiveNote.getId()).apply();
+      saveNote(mContext, mActiveNote);
     }
+  }
+
+  public NotesModel getNotesModel() {
+    return mNotesModel;
   }
 
   /**
    * Note ID を読み込み
    */
-  public void restoreNoteIds() {
+  public void restoreNoteList() {
     String json = "";
     try {
       InputStream in = mContext.openFileInput(NOTE_IDS_SAVE_FILE_NAME);
@@ -80,14 +86,14 @@ public class NoteManager {
     if (json != null) {
       mNotesModel = NotesModel.fromJson(json);
     } else {
-      mNotesModel = NotesModel.fromJson("{\"ids\":[]}");
+      mNotesModel = NotesModel.fromJson("{\"notes\":[]}");
     }
   }
 
   /**
    * Note ID を保存
    */
-  public void saveNoteIds() {
+  public void saveNoteList() {
     try {
       OutputStream out = mContext.openFileOutput(NOTE_IDS_SAVE_FILE_NAME, Context.MODE_PRIVATE);
       PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, NOTE_IDS_SAVE_CHARSET_NAME));
@@ -102,25 +108,34 @@ public class NoteManager {
    * Note の追加
    */
   public void add(NoteModel noteModel) {
-    mNotesModel.getIds().add(noteModel.getId());
-    saveNote(mContext, noteModel);
-    saveNoteIds();
+    mNotesModel.getNotes().add(noteModel);
+    saveNoteList();
   }
 
   /**
    * Note の削除
    */
   public void remove(NoteModel noteModel) {
-    remove(noteModel.getId());
+    remove(noteModel);
+  }
+
+  public boolean contains(NoteModel noteModel) {
+    List<AbsNoteModel> list = mNotesModel.getNotes();
+    for (AbsNoteModel absNoteModel : list) {
+      if (noteModel.getId().equals(absNoteModel.getId())) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
    * Note の削除
    */
-  public void remove(String noteID) {
-    mNotesModel.getIds().remove(noteID);
-    deleteNote(mContext, noteID);
-    saveNoteIds();
+  public void remove(AbsNoteModel noteModel) {
+    mNotesModel.getNotes().remove(noteModel);
+    deleteNote(mContext, noteModel.getId());
+    saveNoteList();
   }
 
   /**

@@ -7,22 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class NoteModel extends AbsGsonModel {
+public class NoteModel extends AbsNoteModel {
 
-  @SerializedName("id") String mId;
-  @SerializedName("title") String mTitle;
   @SerializedName("description") String mDescription;
   @SerializedName("store") StoreModel mStoreModel;
   @SerializedName("sushi_list") List<CountableSushiModel> mSushiModelList;
 
   public NoteModel() {
-    init(new StoreModel(), "");
+    super();
+    init();
   }
 
-  private void init(StoreModel storeModel, String title) {
-    mId = UUID.randomUUID().toString();
-    mStoreModel = storeModel;
-    mTitle = title;
+  private void init() {
+    mStoreModel = new StoreModel();
     mSushiModelList = new ArrayList<>();
   }
 
