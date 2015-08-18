@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 
 import butterknife.Bind;
@@ -32,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
   @Bind(R.id.main_recycler_view) RecyclerView mMainRecyclerView;
   @Bind(R.id.main_toolbar) Toolbar mToolbar;
   @Bind(R.id.main_floating_action_button) FloatingActionButton mFloatingActionButton;
-  @Bind(R.id.navigation_drawer) LinearLayout mDrawer;
   @Bind(R.id.navigation_recycler_view) RecyclerView mNavigationRecyclerView;
 
   private int mScrollDist = 0;
@@ -176,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        mDrawerLayout.openDrawer(mDrawer);
+        mDrawerLayout.openDrawer(mNavigationRecyclerView);
       }
     });
   }
@@ -291,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
         mNoteManager.saveActiveNoteId();
         updateMainAdapter();
         mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
+        mDrawerLayout.closeDrawer(mNavigationRecyclerView);
       }
 
       @Override

@@ -6,21 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MyActivity">
 
-    <LinearLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        android:background="#FAFAFA"
-        android:orientation="vertical"
-        android:id="@+id/navigation_drawer"
-        android:layout_gravity="start">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/navigation_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -50,5 +35,12 @@
             android:src="@drawable/ic_add_white_24dp" />
 
     </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/navigation_recycler_view"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white" />
 
 </android.support.v4.widget.DrawerLayout>
