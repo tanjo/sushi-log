@@ -113,6 +113,21 @@ public class NoteManager {
   }
 
   /**
+   * Note の置換
+   */
+  public void replace(NoteModel noteModel) {
+    if (noteModel != null) {
+      List<AbsNoteModel> list = mNotesModel.getNotes();
+      for (AbsNoteModel absNoteModel : list) {
+        if (noteModel.getId().equals(absNoteModel.getId())) {
+          mNotesModel.getNotes().set(list.indexOf(absNoteModel), noteModel);
+          return;
+        }
+      }
+    }
+  }
+
+  /**
    * Note の削除
    */
   public void remove(NoteModel noteModel) {

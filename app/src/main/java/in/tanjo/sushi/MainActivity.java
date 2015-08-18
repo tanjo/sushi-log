@@ -17,6 +17,8 @@ import android.widget.PopupMenu;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.tanjo.sushi.adapter.MainAdapter;
+import in.tanjo.sushi.adapter.NavigationAdapter;
 import in.tanjo.sushi.model.AbsNoteModel;
 import in.tanjo.sushi.model.CountableSushiModel;
 import in.tanjo.sushi.model.NoteManager;
@@ -130,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
         updateMainAdapter();
         snackbar("メモを更新しました");
         mNoteManager.saveActiveNoteId();
+        mNoteManager.replace(mNoteManager.getActiveNote());
+        mNoteManager.saveNoteList();
+        mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
       }
     }
   }
@@ -289,12 +294,13 @@ public class MainActivity extends AppCompatActivity {
         mNoteManager.saveActiveNoteId();
         updateMainAdapter();
         mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
-        mDrawerLayout.closeDrawer(mNavigationRecyclerView);
+        mDrawerLayout.closeDrawers();
       }
 
       @Override
       public void onItemLongClick(View v, NavigationAdapter adapter, int position, AbsNoteModel noteModel) {
         // TODO: 削除
+
       }
     });
     mNavigationRecyclerView.setAdapter(navigationAdapter);

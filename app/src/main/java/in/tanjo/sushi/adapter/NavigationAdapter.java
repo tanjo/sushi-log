@@ -1,4 +1,4 @@
-package in.tanjo.sushi;
+package in.tanjo.sushi.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import in.tanjo.sushi.R;
 import in.tanjo.sushi.model.AbsNoteModel;
 
 public class NavigationAdapter extends RecyclerView.Adapter<NavigationAdapter.ViewHolder>

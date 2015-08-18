@@ -1,4 +1,4 @@
-package in.tanjo.sushi;
+package in.tanjo.sushi.adapter;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import in.tanjo.sushi.R;
 import in.tanjo.sushi.model.CountableSushiModel;
 
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>
