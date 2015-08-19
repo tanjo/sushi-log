@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         if (mNoteManager.getActiveNote().getId().equals(noteModel.getId())) {
           snackbar("現在使用中のファイルのため削除できません.");
         } else {
-          new AlertDialog.Builder(MainActivity.this)
+          new AlertDialog.Builder(MainActivity.this, R.style.AppDialog)
               .setTitle("ノートの削除")
               .setMessage(noteModel.getTitle() + "を削除しますか？")
               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
