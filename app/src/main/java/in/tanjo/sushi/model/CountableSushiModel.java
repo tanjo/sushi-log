@@ -40,7 +40,7 @@ public class CountableSushiModel extends SushiModel {
     if (mCount > 0) {
       return String.valueOf(mCount) + "貫";
     } else {
-      return null;
+      return "";
     }
   }
 }

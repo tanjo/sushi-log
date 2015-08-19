@@ -82,6 +82,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>
     holder.getNameView().setText(sushiModel.getName());
     holder.getPriceView().setText(sushiModel.getPriceText());
     holder.getCountView().setText(sushiModel.getCountText());
+    if (sushiModel.getPrice() > 0) {
+      holder.getPriceView().setVisibility(View.VISIBLE);
+    } else {
+      holder.getPriceView().setVisibility(View.GONE);
+    }
   }
 
   @Override

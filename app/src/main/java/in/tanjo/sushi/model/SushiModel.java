@@ -26,7 +26,7 @@ public class SushiModel extends AbsGsonModel {
   }
 
   public String getId() {
-    return mId;
+    return optString(mId);
   }
 
   public void setId(String id) {
@@ -53,7 +53,7 @@ public class SushiModel extends AbsGsonModel {
     if (mPrice > 0) {
       return String.valueOf(mPrice) + "円";
     } else {
-      return " - 円";
+      return "";
     }
   }
 }

@@ -23,7 +23,7 @@ public class StoreModel extends AbsGsonModel {
   }
 
   public String getId() {
-    return mId;
+    return optString(mId);
   }
 
   public void setId(String id) {
@@ -35,7 +35,7 @@ public class StoreModel extends AbsGsonModel {
   }
 
   public String getName() {
-    return mName;
+    return optString(mName);
   }
 
   public void setName(String name) {

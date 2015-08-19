@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class NoteModel extends AbsNoteModel {
 
@@ -32,7 +31,7 @@ public class NoteModel extends AbsNoteModel {
   }
 
   public String getId() {
-    return mId;
+    return optString(mId);
   }
 
   public void setId(String id) {
@@ -48,7 +47,7 @@ public class NoteModel extends AbsNoteModel {
   }
 
   public String getTitle() {
-    return mTitle;
+    return optString(mTitle);
   }
 
   public void setTitle(String title) {
@@ -64,7 +63,7 @@ public class NoteModel extends AbsNoteModel {
   }
 
   public String getDescription() {
-    return mDescription;
+    return optString(mDescription);
   }
 
   public void setDescription(String description) {

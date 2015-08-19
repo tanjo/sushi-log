@@ -1,10 +1,12 @@
 package in.tanjo.sushi;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -298,9 +300,25 @@ public class MainActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onItemLongClick(View v, NavigationAdapter adapter, int position, AbsNoteModel noteModel) {
-        // TODO: 削除
-
+      public void onItemLongClick(View v, NavigationAdapter adapter, int position, final AbsNoteModel noteModel) {
+        if (mNoteManager.getActiveNote().getId().equals(noteModel.getId())) {
+          snackbar("現在使用中のファイルのため削除できません.");
+        } else {
+          new AlertDialog.Builder(MainActivity.this)
+              .setTitle("ノートの削除")
+              .setMessage(noteModel.getTitle() + "を削除しますか？")
+              .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                  if (mNoteManager.contains(noteModel)) {
+                    mNoteManager.remove(noteModel);
+                    mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
+                  }
+                }
+              })
+              .setNegativeButton("キャンセル", null)
+              .show();
+        }
       }
     });
     mNavigationRecyclerView.setAdapter(navigationAdapter);

@@ -135,6 +135,10 @@ public class NoteManager {
   }
 
   public boolean contains(NoteModel noteModel) {
+    return contains((AbsNoteModel) noteModel);
+  }
+
+  public boolean contains(AbsNoteModel noteModel) {
     List<AbsNoteModel> list = mNotesModel.getNotes();
     for (AbsNoteModel absNoteModel : list) {
       if (noteModel.getId().equals(absNoteModel.getId())) {
