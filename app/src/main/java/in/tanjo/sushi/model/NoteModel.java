@@ -30,28 +30,12 @@ public class NoteModel extends AbsNoteModel {
     return new Gson().fromJson(json, NoteModel.class);
   }
 
-  public String getId() {
-    return optString(mId);
-  }
-
-  public void setId(String id) {
-    mId = id;
-  }
-
   public StoreModel getStoreModel() {
     return mStoreModel;
   }
 
   public void setStoreModel(StoreModel storeModel) {
     mStoreModel = storeModel;
-  }
-
-  public String getTitle() {
-    return optString(mTitle);
-  }
-
-  public void setTitle(String title) {
-    mTitle = title;
   }
 
   public List<CountableSushiModel> getSushiModelList() {
