@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
       case R.id.action_create_new_note:
         if (!mNoteManager.contains(mNoteManager.getActiveNote())) {
           mNoteManager.add(mNoteManager.getActiveNote());
-          mNoteManager.saveNoteList();
+          mNoteManager.saveNotesModel();
         }
         mNoteManager.setActiveNote(new NoteModel());
-        mNoteManager.saveActiveNoteId();
+        mNoteManager.saveActiveNote();
         updateMainAdapter();
         mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
         break;
@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
         mNoteManager.setActiveNote(noteModel);
         updateMainAdapter();
         snackbar("メモを更新しました");
-        mNoteManager.saveActiveNoteId();
+        mNoteManager.saveActiveNote();
         mNoteManager.replace(mNoteManager.getActiveNote());
-        mNoteManager.saveNoteList();
+        mNoteManager.saveNotesModel();
         mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
       }
     }
@@ -219,13 +219,13 @@ public class MainActivity extends AppCompatActivity {
   private void addItem(CountableSushiModel sushiModel) {
     mNoteManager.getActiveNote().getSushiModelList().add(sushiModel);
     mMainRecyclerView.getAdapter().notifyItemInserted(mNoteManager.getActiveNote().getSushiModelList().size());
-    mNoteManager.saveActiveNoteId();
+    mNoteManager.saveActiveNote();
   }
 
   private void removeItem(int position, CountableSushiModel sushiModel) {
     mNoteManager.getActiveNote().getSushiModelList().remove(sushiModel);
     mMainRecyclerView.getAdapter().notifyItemRemoved(position);
-    mNoteManager.saveActiveNoteId();
+    mNoteManager.saveActiveNote();
     // スクロールができなくなるとなにもできなくなるので強制的に表示してあげる.
     mFloatingActionButton.show();
   }
@@ -233,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
   private void changeItem(int position, CountableSushiModel sushiModel) {
     mNoteManager.getActiveNote().getSushiModelList().set(position, sushiModel);
     mMainRecyclerView.getAdapter().notifyItemChanged(position);
-    mNoteManager.saveActiveNoteId();
+    mNoteManager.saveActiveNote();
   }
 
   /**
@@ -252,10 +252,10 @@ public class MainActivity extends AppCompatActivity {
       public void onItemClick(View v, RecyclerView.Adapter adapter, int position, AbsNoteModel model) {
         if (!mNoteManager.contains(mNoteManager.getActiveNote())) {
           mNoteManager.add(mNoteManager.getActiveNote());
-          mNoteManager.saveNoteList();
+          mNoteManager.saveNotesModel();
         }
         mNoteManager.setActiveNote(mNoteManager.getNote(model.getId()));
-        mNoteManager.saveActiveNoteId();
+        mNoteManager.saveActiveNote();
         updateMainAdapter();
         mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
         mDrawerLayout.closeDrawers();

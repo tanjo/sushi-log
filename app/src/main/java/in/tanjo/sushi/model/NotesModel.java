@@ -3,6 +3,7 @@ package in.tanjo.sushi.model;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotesModel extends AbsGsonModel {
@@ -10,6 +11,7 @@ public class NotesModel extends AbsGsonModel {
   @SerializedName("notes") List<AbsNoteModel> mNotes;
 
   public NotesModel() {
+    mNotes = new ArrayList<AbsNoteModel>();
   }
 
   public static String toJson(NotesModel model) {

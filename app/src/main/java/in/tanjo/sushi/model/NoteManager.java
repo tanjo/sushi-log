@@ -25,8 +25,8 @@ public class NoteManager {
 
   public NoteManager(Context context) {
     mContext = context;
-    restoreNoteList();
-    restoreActiveNoteId();
+    restoreNotesModel();
+    restoreActiveNote();
   }
 
   /**
@@ -44,17 +44,17 @@ public class NoteManager {
   }
 
   /**
-   * アクティブなノートの ID を読み込み
+   * アクティブなノートを読み込み
    */
-  public void restoreActiveNoteId() {
+  public void restoreActiveNote() {
     SharedPreferences sp = mContext.getSharedPreferences(NOTE_MODEL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     mActiveNote = restoreNote(mContext, sp.getString(ACTIVE_NOTE_MODEL_KEY, ""));
   }
 
   /**
-   * アクティブなノートの ID を保存
+   * アクティブなノートを保存
    */
-  public void saveActiveNoteId() {
+  public void saveActiveNote() {
     SharedPreferences sp = mContext.getSharedPreferences(NOTE_MODEL_SHARED_PREFERENCES, Context.MODE_PRIVATE);
     if (mActiveNote != null && mActiveNote.getId() != null) {
       sp.edit().putString(ACTIVE_NOTE_MODEL_KEY, mActiveNote.getId()).apply();
@@ -62,14 +62,18 @@ public class NoteManager {
     }
   }
 
+  /**
+   * NotesModel を取得する
+   * @return
+   */
   public NotesModel getNotesModel() {
     return mNotesModel;
   }
 
   /**
-   * Note ID を読み込み
+   * NotesModel を読み込み
    */
-  public void restoreNoteList() {
+  public void restoreNotesModel() {
     String json = "";
     try {
       InputStream in = mContext.openFileInput(NOTE_IDS_SAVE_FILE_NAME);
@@ -86,14 +90,14 @@ public class NoteManager {
     if (json != null) {
       mNotesModel = NotesModel.fromJson(json);
     } else {
-      mNotesModel = NotesModel.fromJson("{\"notes\":[]}");
+      mNotesModel = new NotesModel();
     }
   }
 
   /**
-   * Note ID を保存
+   * NotesModel を保存
    */
-  public void saveNoteList() {
+  public void saveNotesModel() {
     try {
       OutputStream out = mContext.openFileOutput(NOTE_IDS_SAVE_FILE_NAME, Context.MODE_PRIVATE);
       PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, NOTE_IDS_SAVE_CHARSET_NAME));
@@ -109,7 +113,7 @@ public class NoteManager {
    */
   public void add(NoteModel noteModel) {
     mNotesModel.getNotes().add(noteModel);
-    saveNoteList();
+    saveNotesModel();
   }
 
   /**
@@ -134,10 +138,16 @@ public class NoteManager {
     remove(noteModel);
   }
 
+  /**
+   * Note の存在を確認
+   */
   public boolean contains(NoteModel noteModel) {
     return contains((AbsNoteModel) noteModel);
   }
 
+  /**
+   * Note の存在を確認
+   */
   public boolean contains(AbsNoteModel noteModel) {
     List<AbsNoteModel> list = mNotesModel.getNotes();
     for (AbsNoteModel absNoteModel : list) {
@@ -154,7 +164,7 @@ public class NoteManager {
   public void remove(AbsNoteModel noteModel) {
     mNotesModel.getNotes().remove(noteModel);
     deleteNote(mContext, noteModel.getId());
-    saveNoteList();
+    saveNotesModel();
   }
 
   /**
