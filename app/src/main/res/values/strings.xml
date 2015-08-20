@@ -15,5 +15,6 @@
     <string name="title_activity_edit_note">メモの詳細設定</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_result">おあいそ</string>
 
 </resources>

@@ -25,6 +25,12 @@
                 android:orderInCategory="100"
                 android:title="メモの詳細設定"
                 app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_oaiso"
+                android:orderInCategory="100"
+                android:title="おあいそ"
+                app:showAsAction="never" />
         </menu>
 
     </item>

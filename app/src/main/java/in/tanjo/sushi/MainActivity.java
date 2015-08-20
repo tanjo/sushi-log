@@ -84,10 +84,12 @@ public class MainActivity extends AppCompatActivity {
         break;
       case R.id.action_settings:
         snackbar("設定は開発中です");
-        // SettingsActivity.startActivity(this);
         break;
       case R.id.action_note_edit:
         EditNoteActivity.startActivityWithNoteObjectAndRequestCode(this, mNoteManager.getActiveNote());
+        break;
+      case R.id.action_oaiso:
+        ResultActivity.startActivityWithNoteObject(this, mNoteManager.getActiveNote());
         break;
       default:
         break;
