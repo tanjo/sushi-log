@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.tanjo.sushi.adapter.MainAdapter;
 import in.tanjo.sushi.adapter.NavigationAdapter;
+import in.tanjo.sushi.listener.OnRecyclerViewAdapterItemClickListener;
 import in.tanjo.sushi.model.AbsNoteModel;
 import in.tanjo.sushi.model.CountableSushiModel;
 import in.tanjo.sushi.model.NoteManager;
@@ -176,15 +177,15 @@ public class MainActivity extends AppCompatActivity {
 
   private void updateMainAdapter() {
     MainAdapter mainAdapter = new MainAdapter(mNoteManager.getActiveNote().getSushiModelList());
-    mainAdapter.setOnMainAdapterItemClickListener(new MainAdapter.OnMainAdapterItemClickListener() {
+    mainAdapter.setOnRecyclerViewAdapterItemClickListener(new OnRecyclerViewAdapterItemClickListener<CountableSushiModel>() {
       @Override
-      public void onItemClick(View v, MainAdapter adapter, int position, final CountableSushiModel countableSushiModel) {
-        countableSushiModel.setCount(countableSushiModel.getCount() + 1);
-        changeItem(position, countableSushiModel);
+      public void onItemClick(View v, RecyclerView.Adapter adapter, int position, CountableSushiModel model) {
+        model.setCount(model.getCount() + 1);
+        changeItem(position, model);
       }
 
       @Override
-      public void onItemLongClick(View v, MainAdapter adapter, final int position, final CountableSushiModel countableSushiModel) {
+      public void onItemLongClick(View v, RecyclerView.Adapter adapter, final int position, final CountableSushiModel model) {
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, v);
         popupMenu.getMenuInflater().inflate(R.menu.popup_countable_sushi_model_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -192,18 +193,18 @@ public class MainActivity extends AppCompatActivity {
           public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
               case R.id.popup_menu_sushi_delete:
-                removeItem(position, countableSushiModel);
-                snackbar(countableSushiModel.getName() + "を削除しました");
+                removeItem(position, model);
+                snackbar(model.getName() + "を削除しました");
                 break;
               case R.id.popup_menu_sushi_plus1:
-                countableSushiModel.setCount(countableSushiModel.getCount() + 1);
-                changeItem(position, countableSushiModel);
+                model.setCount(model.getCount() + 1);
+                changeItem(position, model);
                 break;
               case R.id.popup_menu_sushi_minus1:
-                if (countableSushiModel.getCount() - 1 >= 0) {
-                  countableSushiModel.setCount(countableSushiModel.getCount() - 1);
+                if (model.getCount() - 1 >= 0) {
+                  model.setCount(model.getCount() - 1);
                 }
-                changeItem(position, countableSushiModel);
+                changeItem(position, model);
                 break;
             }
             return true;
@@ -246,14 +247,14 @@ public class MainActivity extends AppCompatActivity {
 
   private void updateNavigationAdapter() {
     NavigationAdapter navigationAdapter = new NavigationAdapter(mNoteManager.getNotesModel().getNotes());
-    navigationAdapter.setOnNavigationAdapterItemClickListener(new NavigationAdapter.OnNavigationAdapterItemClickListener() {
+    navigationAdapter.setOnRecyclerViewAdapterItemClickListener(new OnRecyclerViewAdapterItemClickListener<AbsNoteModel>() {
       @Override
-      public void onItemClick(View v, NavigationAdapter adapter, int position, AbsNoteModel noteModel) {
+      public void onItemClick(View v, RecyclerView.Adapter adapter, int position, AbsNoteModel model) {
         if (!mNoteManager.contains(mNoteManager.getActiveNote())) {
           mNoteManager.add(mNoteManager.getActiveNote());
           mNoteManager.saveNoteList();
         }
-        mNoteManager.setActiveNote(mNoteManager.getNote(noteModel.getId()));
+        mNoteManager.setActiveNote(mNoteManager.getNote(model.getId()));
         mNoteManager.saveActiveNoteId();
         updateMainAdapter();
         mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
@@ -261,18 +262,18 @@ public class MainActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onItemLongClick(View v, NavigationAdapter adapter, int position, final AbsNoteModel noteModel) {
-        if (mNoteManager.getActiveNote().getId().equals(noteModel.getId())) {
+      public void onItemLongClick(View v, RecyclerView.Adapter adapter, int position, final AbsNoteModel model) {
+        if (mNoteManager.getActiveNote().getId().equals(model.getId())) {
           snackbar("現在使用中のファイルのため削除できません.");
         } else {
           new AlertDialog.Builder(MainActivity.this, R.style.AppDialog)
               .setTitle("ノートの削除")
-              .setMessage(noteModel.getTitle() + "を削除しますか？")
+              .setMessage(model.getTitle() + "を削除しますか？")
               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                  if (mNoteManager.contains(noteModel)) {
-                    mNoteManager.remove(noteModel);
+                  if (mNoteManager.contains(model)) {
+                    mNoteManager.remove(model);
                     mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
                   }
                 }
@@ -285,4 +286,3 @@ public class MainActivity extends AppCompatActivity {
     mNavigationRecyclerView.setAdapter(navigationAdapter);
   }
 }
-
