@@ -29,15 +29,12 @@ import in.tanjo.sushi.model.SushiModel;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static final float THRESHOLD_HIDE_FLOATINGACTIONBUTTON = 25;
-
   @Bind(R.id.main_drawerlayout) DrawerLayout mDrawerLayout;
   @Bind(R.id.main_recycler_view) RecyclerView mMainRecyclerView;
   @Bind(R.id.main_toolbar) Toolbar mToolbar;
   @Bind(R.id.main_floating_action_button) FloatingActionButton mFloatingActionButton;
   @Bind(R.id.navigation_recycler_view) RecyclerView mNavigationRecyclerView;
 
-  private int mScrollDist = 0;
   private NoteManager mNoteManager;
 
   @Override
@@ -159,23 +156,8 @@ public class MainActivity extends AppCompatActivity {
    * イニシャライザー
    */
   private void init() {
-    initVariables();
-    initToolbar();
-    initMainRecyclerView();
-    initNavigaitonRecyclerView();
-  }
-
-  /**
-   * 変数の初期化
-   */
-  private void initVariables() {
     mNoteManager = new NoteManager(this);
-  }
 
-  /**
-   * ツールバーの初期化
-   */
-  private void initToolbar() {
     setSupportActionBar(mToolbar);
     mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
     mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -184,33 +166,12 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.openDrawer(mNavigationRecyclerView);
       }
     });
-  }
 
-  /**
-   * メインのリサイクルViewを初期化
-   */
-  private void initMainRecyclerView() {
     mMainRecyclerView.setHasFixedSize(true);
     mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    mMainRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-      @Override
-      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-
-        if (mFloatingActionButton.isShown() && mScrollDist > THRESHOLD_HIDE_FLOATINGACTIONBUTTON) {
-          mFloatingActionButton.hide();
-          mScrollDist = 0;
-        } else if (!mFloatingActionButton.isShown() && mScrollDist < -THRESHOLD_HIDE_FLOATINGACTIONBUTTON) {
-          mFloatingActionButton.show();
-        }
-
-        if ((mFloatingActionButton.isShown() && dy > 0) || (!mFloatingActionButton.isShown() && dy < 0)) {
-          mScrollDist += dy;
-        }
-      }
-    });
-
     updateMainAdapter();
+
+    initNavigaitonRecyclerView();
   }
 
   private void updateMainAdapter() {
