@@ -13,75 +13,77 @@ import in.tanjo.sushi.listener.OnRecyclerViewAdapterItemClickListener;
 import in.tanjo.sushi.model.AbsNoteModel;
 
 public class NavigationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
-    implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
 
-  private List<AbsNoteModel> mAbsNoteModelList;
-  private RecyclerView mRecyclerView;
-  private OnRecyclerViewAdapterItemClickListener<AbsNoteModel> mOnRecyclerViewAdapterItemClickListener;
+    private List<AbsNoteModel> mAbsNoteModelList;
 
-  public NavigationAdapter(List<AbsNoteModel> absNoteModelList) {
-    mAbsNoteModelList = absNoteModelList;
-  }
+    private RecyclerView mRecyclerView;
 
-  @Override
-  public int getItemCount() {
-    return mAbsNoteModelList.size();
-  }
+    private OnRecyclerViewAdapterItemClickListener<AbsNoteModel> mOnRecyclerViewAdapterItemClickListener;
 
-  @Override
-  public void onClick(View v) {
-    if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
-      int position = mRecyclerView.getChildAdapterPosition(v);
-      AbsNoteModel noteModel = mAbsNoteModelList.get(position);
-      mOnRecyclerViewAdapterItemClickListener.onItemClick(v, this, position, noteModel);
+    public NavigationAdapter(List<AbsNoteModel> absNoteModelList) {
+        mAbsNoteModelList = absNoteModelList;
     }
-   }
 
-  @Override
-  public boolean onLongClick(View v) {
-    if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
-      int position = mRecyclerView.getChildAdapterPosition(v);
-      AbsNoteModel noteModel = mAbsNoteModelList.get(position);
-      mOnRecyclerViewAdapterItemClickListener.onItemLongClick(v, this, position, noteModel);
-      return true;
+    @Override
+    public void onClick(View v) {
+        if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
+            int position = mRecyclerView.getChildAdapterPosition(v);
+            AbsNoteModel noteModel = mAbsNoteModelList.get(position);
+            mOnRecyclerViewAdapterItemClickListener.onItemClick(v, this, position, noteModel);
+        }
     }
-    return false;
-  }
 
-  @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View v = LayoutInflater
-        .from(parent.getContext())
-        .inflate(R.layout.navigation_card_view, parent, false);
-    v.setOnClickListener(this);
-    v.setOnLongClickListener(this);
-
-    return new NavigationCardViewHolder(v);
-  }
-
-  @Override
-  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    AbsNoteModel noteModel = mAbsNoteModelList.get(position);
-
-    if (holder != null && holder instanceof NavigationCardViewHolder) {
-      NavigationCardViewHolder viewHolder = (NavigationCardViewHolder) holder;
-      viewHolder.bind(noteModel);
+    @Override
+    public boolean onLongClick(View v) {
+        if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
+            int position = mRecyclerView.getChildAdapterPosition(v);
+            AbsNoteModel noteModel = mAbsNoteModelList.get(position);
+            mOnRecyclerViewAdapterItemClickListener.onItemLongClick(v, this, position, noteModel);
+            return true;
+        }
+        return false;
     }
-  }
 
-  @Override
-  public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-    super.onAttachedToRecyclerView(recyclerView);
-    mRecyclerView = recyclerView;
-  }
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.navigation_card_view, parent, false);
+        v.setOnClickListener(this);
+        v.setOnLongClickListener(this);
 
-  @Override
-  public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-    super.onDetachedFromRecyclerView(recyclerView);
-    mRecyclerView = null;
-  }
+        return new NavigationCardViewHolder(v);
+    }
 
-  public void setOnRecyclerViewAdapterItemClickListener(OnRecyclerViewAdapterItemClickListener<AbsNoteModel> listener) {
-    mOnRecyclerViewAdapterItemClickListener = listener;
-  }
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        AbsNoteModel noteModel = mAbsNoteModelList.get(position);
+
+        if (holder != null && holder instanceof NavigationCardViewHolder) {
+            NavigationCardViewHolder viewHolder = (NavigationCardViewHolder) holder;
+            viewHolder.bind(noteModel);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return mAbsNoteModelList.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView = null;
+    }
+
+    public void setOnRecyclerViewAdapterItemClickListener(OnRecyclerViewAdapterItemClickListener<AbsNoteModel> listener) {
+        mOnRecyclerViewAdapterItemClickListener = listener;
+    }
 }

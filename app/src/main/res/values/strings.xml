@@ -9,6 +9,7 @@
     <string name="sushi_price">寿司の値段 (円)</string>
     <string name="finish">完了</string>
     <string name="add_sushi_activity_name_error">名前入力してください.</string>
+    <string name="add_sushi_activity_price_error">価格を入力してください.</string>
     <string name="popup_countable_sushi_model_menu_delete">削除する</string>
     <string name="popup_countable_sushi_menu_plus1">１つ増やす</string>
     <string name="popup_countable_sushi_menu_minus1">１つ減らす</string>

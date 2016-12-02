@@ -1,22 +1,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
 
     <item
-        android:id="@+id/popup_menu_sushi_plus1"
-        android:icon="@drawable/ic_exposure_plus_1_black_24dp"
-        android:title="@string/popup_countable_sushi_menu_plus1"
-        app:showAsAction="never" />
+            android:id="@+id/popup_menu_sushi_plus1"
+            android:icon="@drawable/ic_exposure_plus_1_black_24dp"
+            android:title="@string/popup_countable_sushi_menu_plus1"
+            app:showAsAction="never"
+            />
 
     <item
-        android:id="@+id/popup_menu_sushi_minus1"
-        android:icon="@drawable/ic_exposure_neg_1_black_24dp"
-        android:title="@string/popup_countable_sushi_menu_minus1"
-        app:showAsAction="never" />
+            android:id="@+id/popup_menu_sushi_minus1"
+            android:icon="@drawable/ic_exposure_neg_1_black_24dp"
+            android:title="@string/popup_countable_sushi_menu_minus1"
+            app:showAsAction="never"
+            />
 
     <item
-        android:id="@+id/popup_menu_sushi_delete"
-        android:icon="@drawable/ic_delete_black_24dp"
-        android:title="@string/popup_countable_sushi_model_menu_delete"
-        app:showAsAction="never" />
+            android:id="@+id/popup_menu_sushi_delete"
+            android:icon="@drawable/ic_delete_black_24dp"
+            android:title="@string/popup_countable_sushi_model_menu_delete"
+            app:showAsAction="never"
+            />
 
 </menu>

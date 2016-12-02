@@ -7,38 +7,41 @@ import java.util.UUID;
 
 public class StoreModel extends AbsGsonModel {
 
-  @SerializedName("id") String mId;
-  @SerializedName("name") String mName;
+    @SerializedName("id")
+    private String mId;
 
-  public StoreModel() {
-    mId = UUID.randomUUID().toString();
-  }
+    @SerializedName("name")
+    private String mName;
 
-  public static String toJson(StoreModel model) {
-    return new Gson().toJson(model, StoreModel.class);
-  }
+    public StoreModel() {
+        mId = UUID.randomUUID().toString();
+    }
 
-  public static StoreModel fromJson(String json) {
-    return new Gson().fromJson(json, StoreModel.class);
-  }
+    public StoreModel(String name) {
+        mName = name;
+    }
 
-  public String getId() {
-    return optString(mId);
-  }
+    public static String toJson(StoreModel model) {
+        return new Gson().toJson(model, StoreModel.class);
+    }
 
-  public void setId(String id) {
-    mId = id;
-  }
+    public static StoreModel fromJson(String json) {
+        return new Gson().fromJson(json, StoreModel.class);
+    }
 
-  public StoreModel(String name) {
-    mName = name;
-  }
+    public String getId() {
+        return optString(mId);
+    }
 
-  public String getName() {
-    return optString(mName);
-  }
+    public void setId(String id) {
+        mId = id;
+    }
 
-  public void setName(String name) {
-    mName = name;
-  }
+    public String getName() {
+        return optString(mName);
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
 }

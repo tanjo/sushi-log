@@ -1,58 +1,67 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="in.tanjo.sushi.EditNoteActivity">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/edit_note_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
-
-    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:padding="16dp">
+        tools:context="in.tanjo.sushi.EditNoteActivity"
+        >
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/edit_note_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:orientation="vertical"
+            android:padding="16dp"
+            >
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/edit_note_activity_memo_title_textinputlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edit_note_activity_memo_title_edit"
+                android:id="@+id/edit_note_activity_memo_title_textinputlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="タイトル" />
+                >
+
+            <EditText
+                    android:id="@+id/edit_note_activity_memo_title_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="タイトル"
+                    />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/edit_note_activity_store_name_textinputlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edit_note_activity_store_name_edit"
+                android:id="@+id/edit_note_activity_store_name_textinputlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="店舗名" />
+                >
+
+            <EditText
+                    android:id="@+id/edit_note_activity_store_name_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="店舗名"
+                    />
 
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/edit_note_activity_description_textinputlayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/edit_note_activity_description_edit"
+                android:id="@+id/edit_note_activity_description_textinputlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="メモ" />
+                >
+
+            <EditText
+                    android:id="@+id/edit_note_activity_description_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="メモ"
+                    />
 
         </android.support.design.widget.TextInputLayout>
 

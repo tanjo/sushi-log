@@ -3,102 +3,108 @@ package in.tanjo.sushi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import in.tanjo.sushi.model.NoteModel;
+import in.tanjo.sushi.model.Note;
 import in.tanjo.sushi.model.StoreModel;
 
 public class EditNoteActivity extends AppCompatActivity {
-  public static final int REQUESTCODE_NOTE_OBJECT = 22002;
-  public static final String INTENT_NOTE_OBJECT = "key_intent_note_object";
-  public static final String BUNDLEKEY_NOTE_OBJECT = "key_note_object";
 
-  @Bind(R.id.edit_note_activity_memo_title_edit) EditText mTitleEditText;
-  @Bind(R.id.edit_note_activity_store_name_edit) EditText mStoreEditText;
-  @Bind(R.id.edit_note_activity_description_edit) EditText mDescriptionEditText;
-  @Bind(R.id.edit_note_activity_description_textinputlayout) TextInputLayout mDescriptionTextInputLayout;
-  @Bind(R.id.edit_note_activity_memo_title_textinputlayout) TextInputLayout mTitleTextInputLayout;
-  @Bind(R.id.edit_note_activity_store_name_textinputlayout) TextInputLayout mStoreTextInputLayout;
-  @Bind(R.id.edit_note_toolbar) Toolbar mToolbar;
+    static final int REQUESTCODE_NOTE_OBJECT = 22002;
 
-  private NoteModel mNoteModel;
+    static final String BUNDLEKEY_NOTE_OBJECT = "key_note_object";
 
-  public static void startActivityWithNoteObjectAndRequestCode(Activity activity, NoteModel noteModel) {
-    Intent intent = new Intent(activity, EditNoteActivity.class);
-    intent.putExtra(INTENT_NOTE_OBJECT, noteModel);
-    activity.startActivityForResult(intent, REQUESTCODE_NOTE_OBJECT);
-  }
+    private static final String INTENT_NOTE_OBJECT = "key_intent_note_object";
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_edit_note);
-    ButterKnife.bind(this);
-    setSupportActionBar(mToolbar);
+    @BindView(R.id.edit_note_activity_memo_title_edit)
+    EditText titleEditText;
 
-    catchNoteModel();
-  }
+    @BindView(R.id.edit_note_activity_store_name_edit)
+    EditText storeEditText;
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_edit_note, menu);
-    return true;
-  }
+    @BindView(R.id.edit_note_activity_description_edit)
+    EditText descriptionEditText;
 
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == R.id.action_note_input_complete) {
-      complete();
-      return true;
+    @BindView(R.id.edit_note_toolbar)
+    Toolbar toolbar;
+
+    private Note note;
+
+    static void startActivityWithNoteObjectAndRequestCode(Activity activity, Note note) {
+        Intent intent = new Intent(activity, EditNoteActivity.class);
+        intent.putExtra(INTENT_NOTE_OBJECT, note);
+        activity.startActivityForResult(intent, REQUESTCODE_NOTE_OBJECT);
     }
 
-    return super.onOptionsItemSelected(item);
-  }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_note);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
-  private void catchNoteModel() {
-    Intent intent = getIntent();
-    if (intent != null) {
-      mNoteModel = (NoteModel)intent.getSerializableExtra(INTENT_NOTE_OBJECT);
-      if (mNoteModel != null) {
-        // Title
-        mTitleEditText.setText(mNoteModel.getTitle());
-        // Description
-        mDescriptionEditText.setText(mNoteModel.getDescription());
-        // Store
-        StoreModel storeModel = mNoteModel.getStoreModel();
-        if (storeModel != null) {
-          mStoreEditText.setText(storeModel.getName());
-        } else {
-          mNoteModel.setStoreModel(new StoreModel());
+        catchNoteModel();
+    }
+
+    private void catchNoteModel() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            note = (Note) intent.getSerializableExtra(INTENT_NOTE_OBJECT);
+            if (note != null) {
+                // Title
+                titleEditText.setText(note.getTitle());
+                // Description
+                descriptionEditText.setText(note.getDescription());
+                // Store
+                StoreModel storeModel = note.getStoreModel();
+                if (storeModel != null) {
+                    storeEditText.setText(storeModel.getName());
+                } else {
+                    note.setStoreModel(new StoreModel());
+                }
+            } else {
+                note = new Note();
+            }
         }
-      } else {
-        mNoteModel = new NoteModel();
-      }
     }
-  }
 
-  private void complete() {
-    mNoteModel.getStoreModel().setName(mStoreEditText.getText().toString());
-    mNoteModel.setTitle(mTitleEditText.getText().toString());
-    mNoteModel.setDescription(mDescriptionEditText.getText().toString());
-    setNoteResult(mNoteModel);
-    finish();
-  }
-
-  private void setNoteResult(NoteModel noteModel) {
-    if (noteModel != null) {
-      Intent data = new Intent();
-      Bundle bundle = new Bundle();
-      bundle.putSerializable(BUNDLEKEY_NOTE_OBJECT, noteModel);
-      data.putExtras(bundle);
-      setResult(RESULT_OK, data);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_edit_note, menu);
+        return true;
     }
-  }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_note_input_complete) {
+            complete();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void complete() {
+        note.getStoreModel().setName(storeEditText.getText().toString());
+        note.setTitle(titleEditText.getText().toString());
+        note.setDescription(descriptionEditText.getText().toString());
+        setNoteResult(note);
+        finish();
+    }
+
+    private void setNoteResult(Note note) {
+        if (note != null) {
+            Intent data = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(BUNDLEKEY_NOTE_OBJECT, note);
+            data.putExtras(bundle);
+            setResult(RESULT_OK, data);
+        }
+    }
 }

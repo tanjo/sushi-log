@@ -11,80 +11,100 @@ import java.util.List;
 
 import in.tanjo.sushi.R;
 import in.tanjo.sushi.adapter.holder.MainCardViewHolder;
+import in.tanjo.sushi.adapter.holder.MainFooterCardViewHolder;
 import in.tanjo.sushi.listener.OnRecyclerViewAdapterItemClickListener;
-import in.tanjo.sushi.model.CountableSushiModel;
+import in.tanjo.sushi.model.CountableSushi;
 
 public class MainAdapter extends Adapter<ViewHolder>
-    implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
 
-  private List<CountableSushiModel> mSushiModelList;
-  private RecyclerView mRecyclerView;
-  private OnRecyclerViewAdapterItemClickListener<CountableSushiModel> mOnRecyclerViewAdapterItemClickListener;
+    private List<CountableSushi> mSushiModelList;
 
-  public MainAdapter(List<CountableSushiModel> sushiModelList) {
-    mSushiModelList = sushiModelList;
-  }
+    private RecyclerView mRecyclerView;
 
-  @Override
-  public int getItemCount() {
-    return mSushiModelList.size();
-  }
+    private OnRecyclerViewAdapterItemClickListener<CountableSushi> mOnRecyclerViewAdapterItemClickListener;
 
-  @Override
-  public void onBindViewHolder(ViewHolder holder, int position) {
-    CountableSushiModel sushiModel = mSushiModelList.get(position);
-
-    if (holder != null && holder instanceof MainCardViewHolder) {
-      MainCardViewHolder viewHolder = (MainCardViewHolder) holder;
-      viewHolder.bind(sushiModel);
+    public MainAdapter(List<CountableSushi> sushiModelList) {
+        mSushiModelList = sushiModelList;
     }
-  }
 
-  @Override
-  public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View v = LayoutInflater
-        .from(parent.getContext())
-        .inflate(R.layout.main_card_view, parent, false);
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-    v.setOnClickListener(this);
-    v.setOnLongClickListener(this);
+        if (viewType == 101) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_card_view_footer, parent, false);
+            return new MainFooterCardViewHolder(v);
+        }
 
-    return new MainCardViewHolder(v);
-  }
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_card_view, parent, false);
 
-  @Override
-  public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-    super.onAttachedToRecyclerView(recyclerView);
-    mRecyclerView = recyclerView;
-  }
+        v.setOnClickListener(this);
+        v.setOnLongClickListener(this);
 
-  @Override
-  public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-    super.onDetachedFromRecyclerView(recyclerView);
-    mRecyclerView = null;
-  }
-
-  @Override
-  public void onClick(View v) {
-    if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
-      int position = mRecyclerView.getChildAdapterPosition(v);
-      CountableSushiModel countableSushiModel = mSushiModelList.get(position);
-      mOnRecyclerViewAdapterItemClickListener.onItemClick(v, this, position, countableSushiModel);
+        return new MainCardViewHolder(v);
     }
-  }
 
-  @Override
-  public boolean onLongClick(View v) {
-    if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
-      int position = mRecyclerView.getChildAdapterPosition(v);
-      CountableSushiModel countableSushiModel = mSushiModelList.get(position);
-      mOnRecyclerViewAdapterItemClickListener.onItemLongClick(v, this, position, countableSushiModel);
-      return true;
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        if (mSushiModelList.size() == position) {
+            return;
+        }
+
+        CountableSushi countableSushi = mSushiModelList.get(position);
+
+        if (holder != null && holder instanceof MainCardViewHolder) {
+            MainCardViewHolder viewHolder = (MainCardViewHolder) holder;
+            viewHolder.bind(countableSushi);
+        }
     }
-    return false;
-  }
 
-  public void setOnRecyclerViewAdapterItemClickListener(OnRecyclerViewAdapterItemClickListener<CountableSushiModel> listener) {
-    mOnRecyclerViewAdapterItemClickListener = listener;
-  }
+    @Override
+    public int getItemViewType(int position) {
+        if (mSushiModelList.size() == position) {
+            return 101;
+        }
+        return 100;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mSushiModelList.size() + 1;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
+            int position = mRecyclerView.getChildAdapterPosition(v);
+            CountableSushi countableSushiModel = mSushiModelList.get(position);
+            mOnRecyclerViewAdapterItemClickListener.onItemClick(v, this, position, countableSushiModel);
+        }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (mOnRecyclerViewAdapterItemClickListener != null && mRecyclerView != null) {
+            int position = mRecyclerView.getChildAdapterPosition(v);
+            CountableSushi countableSushiModel = mSushiModelList.get(position);
+            mOnRecyclerViewAdapterItemClickListener.onItemLongClick(v, this, position, countableSushiModel);
+            return true;
+        }
+        return false;
+    }
+
+    public void setOnRecyclerViewAdapterItemClickListener(
+            OnRecyclerViewAdapterItemClickListener<CountableSushi> listener) {
+        mOnRecyclerViewAdapterItemClickListener = listener;
+    }
 }

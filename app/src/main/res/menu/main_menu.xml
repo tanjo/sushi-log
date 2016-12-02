@@ -1,36 +1,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="in.tanjo.sushi.MainActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="in.tanjo.sushi.MainActivity"
+        >
 
     <item
-        android:id="@+id/action_menu"
-        android:icon="@drawable/ic_more_vert_black_24dp"
-        android:title="@string/menu_name"
-        app:showAsAction="ifRoom">
+            android:id="@+id/action_menu"
+            android:icon="@drawable/ic_more_vert_black_24dp"
+            android:title="@string/menu_name"
+            app:showAsAction="ifRoom"
+            >
 
         <menu>
-            <item android:id="@+id/action_create_new_note"
-                  android:orderInCategory="100"
-                  android:title="新規作成"
-                  />
             <item
-                android:id="@+id/action_settings"
-                android:orderInCategory="100"
-                android:title="@string/action_settings"
-                app:showAsAction="never" />
+                    android:id="@+id/action_create_new_note"
+                    android:orderInCategory="100"
+                    android:title="新規作成"
+                    />
+            <item
+                    android:id="@+id/action_settings"
+                    android:orderInCategory="100"
+                    android:title="@string/action_settings"
+                    app:showAsAction="never"
+                    />
 
             <item
-                android:id="@+id/action_note_edit"
-                android:orderInCategory="100"
-                android:title="メモの詳細設定"
-                app:showAsAction="never" />
+                    android:id="@+id/action_note_edit"
+                    android:orderInCategory="100"
+                    android:title="メモの詳細設定"
+                    app:showAsAction="never"
+                    />
 
             <item
-                android:id="@+id/action_oaiso"
-                android:orderInCategory="100"
-                android:title="おあいそ"
-                app:showAsAction="never" />
+                    android:id="@+id/action_oaiso"
+                    android:orderInCategory="100"
+                    android:title="おあいそ"
+                    app:showAsAction="never"
+                    />
         </menu>
 
     </item>

@@ -6,23 +6,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbsGsonModel implements Serializable {
+class AbsGsonModel implements Serializable {
 
-  protected String optString(String string) {
-    if (string == null) {
-      return "";
+    String optString(String string) {
+        if (string == null) {
+            return "";
+        }
+        return string;
     }
-    return string;
-  }
 
-  protected <E> List<E> optList(List<E> list) {
-    if (list == null) {
-      return new ArrayList<>();
+    protected <E> List<E> optList(List<E> list) {
+        if (list == null) {
+            return new ArrayList<>();
+        }
+        return list;
     }
-    return list;
-  }
 
-  public String toJson() {
-    return new Gson().toJson(this, this.getClass());
-  }
+    String toJson() {
+        return new Gson().toJson(this, this.getClass());
+    }
 }

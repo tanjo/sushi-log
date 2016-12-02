@@ -7,34 +7,37 @@ import java.util.UUID;
 
 public class AbsNoteModel extends AbsGsonModel {
 
-  @SerializedName("id") String mId;
-  @SerializedName("title") String mTitle;
+    @SerializedName("id")
+    private String mId;
 
-  public AbsNoteModel() {
-    mId = UUID.randomUUID().toString();
-  }
+    @SerializedName("title")
+    private String mTitle;
 
-  public static String toJson(AbsNoteModel model) {
-    return new Gson().toJson(model, AbsNoteModel.class);
-  }
+    AbsNoteModel() {
+        mId = UUID.randomUUID().toString();
+    }
 
-  public static AbsNoteModel fromJson(String json) {
-    return new Gson().fromJson(json, AbsNoteModel.class);
-  }
+    public static String toJson(AbsNoteModel model) {
+        return new Gson().toJson(model, AbsNoteModel.class);
+    }
 
-  public String getId() {
-    return optString(mId);
-  }
+    public static AbsNoteModel fromJson(String json) {
+        return new Gson().fromJson(json, AbsNoteModel.class);
+    }
 
-  public void setId(String id) {
-    mId = id;
-  }
+    public String getId() {
+        return optString(mId);
+    }
 
-  public String getTitle() {
-    return optString(mTitle);
-  }
+    public void setId(String id) {
+        mId = id;
+    }
 
-  public void setTitle(String title) {
-    mTitle = title;
-  }
+    public String getTitle() {
+        return optString(mTitle);
+    }
+
+    public void setTitle(String title) {
+        mTitle = title;
+    }
 }
