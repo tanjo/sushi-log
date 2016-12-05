@@ -38,8 +38,9 @@
                 android:id="@+id/license_view_license"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
                 android:textSize="12sp"
-                tools:text="THIS IS ..."
+                tools:text="THIS IS ... \nhttps://github.com/tanjo/sushi-log"
                 />
 
     </LinearLayout>
