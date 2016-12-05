@@ -55,10 +55,6 @@ public class Sushi extends AbsGsonModel {
     }
 
     public String getPriceText() {
-        if (price > 0) {
-            return String.valueOf(price) + "円";
-        } else {
-            return "";
-        }
+        return String.valueOf(price) + "円";
     }
 }

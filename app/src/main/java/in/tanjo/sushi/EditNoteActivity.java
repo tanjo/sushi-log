@@ -3,18 +3,15 @@ package in.tanjo.sushi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import in.tanjo.sushi.model.Note;
 import in.tanjo.sushi.model.StoreModel;
 
-public class EditNoteActivity extends AppCompatActivity {
+public class EditNoteActivity extends AbsActivity {
 
     static final int REQUESTCODE_NOTE_OBJECT = 22002;
 
@@ -31,9 +28,6 @@ public class EditNoteActivity extends AppCompatActivity {
     @BindView(R.id.edit_note_activity_description_edit)
     EditText descriptionEditText;
 
-    @BindView(R.id.edit_note_toolbar)
-    Toolbar toolbar;
-
     private Note note;
 
     static void startActivityWithNoteObjectAndRequestCode(Activity activity, Note note) {
@@ -45,13 +39,22 @@ public class EditNoteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_note);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-
         catchNoteModel();
     }
 
+    @Override
+    public int getContentViewLayout() {
+        return R.layout.activity_edit_note;
+    }
+
+    @Override
+    public int getToolbarId() {
+        return R.id.edit_note_activity_toolbar;
+    }
+
+    /**
+     * 呼び出し元からノートモデルを取得
+     */
     private void catchNoteModel() {
         Intent intent = getIntent();
         if (intent != null) {
@@ -86,10 +89,12 @@ public class EditNoteActivity extends AppCompatActivity {
             complete();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * 完了時の処理
+     */
     private void complete() {
         note.getStoreModel().setName(storeEditText.getText().toString());
         note.setTitle(titleEditText.getText().toString());
@@ -98,6 +103,9 @@ public class EditNoteActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * ノートモデルを呼び出し元に返す.
+     */
     private void setNoteResult(Note note) {
         if (note != null) {
             Intent data = new Intent();

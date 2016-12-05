@@ -3,12 +3,10 @@ package in.tanjo.sushi;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -16,18 +14,16 @@ import android.widget.EditText;
 
 import butterknife.BindString;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import in.tanjo.sushi.model.Sushi;
+import in.tanjo.sushi.model.SushiMaker;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Func2;
-import rx.subscriptions.CompositeSubscription;
 
-public class AddSushiActivity extends AppCompatActivity {
+public class AddSushiActivity extends AbsActivity {
 
     public static final int REQUESTCODE_SUSHI_OBJECT = 33001;
 
-    public static final String BUNDLEKEY_SUSHI_MODEL = "key_sushi_model";
+    public static final String BUNDLE_KEY_SUSHI_MODEL = "key_sushi_model";
 
     @BindView(R.id.sushi_name)
     EditText nameEditText;
@@ -41,46 +37,33 @@ public class AddSushiActivity extends AppCompatActivity {
     @BindView(R.id.sushi_price_layout)
     TextInputLayout priceTextInputLayout;
 
-    @BindView(R.id.add_sushi_toolbar)
-    Toolbar toolbar;
-
     @BindString(R.string.add_sushi_activity_name_error)
     String nameErrorMessage;
 
     @BindString(R.string.add_sushi_activity_price_error)
     String priceErrorMessage;
 
-    boolean canSave = false;
-
-    private Sushi sushi = new Sushi();
-
-    private CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private SushiMaker sushiMaker = new SushiMaker();
 
     public static void startActivityWithSushiRequestCode(Activity activity) {
-        Intent intent = newInstance(activity);
+        Intent intent = new Intent(activity, AddSushiActivity.class);
         activity.startActivityForResult(intent, REQUESTCODE_SUSHI_OBJECT);
-    }
-
-    public static Intent newInstance(Context activity) {
-        return new Intent(activity, AddSushiActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_sushi);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        initRx();
+    }
 
+    private void initRx() {
         Observable<CharSequence> nameObservable = RxTextView.textChanges(nameEditText);
         Observable<CharSequence> priceObservable = RxTextView.textChanges(priceEditText);
 
-        compositeSubscription.add(nameObservable.subscribe(new Subscriber<CharSequence>() {
+        addSubscription(nameObservable.subscribe(new Subscriber<CharSequence>() {
             @Override
             public void onCompleted() {
-                // no action.
             }
 
             @Override
@@ -89,7 +72,7 @@ public class AddSushiActivity extends AppCompatActivity {
 
             @Override
             public void onNext(CharSequence charSequence) {
-                sushi.setName(charSequence.toString());
+                sushiMaker.setName(charSequence.toString());
                 if (charSequence.length() == 0) {
                     nameTextInputLayout.setError(nameErrorMessage);
                 } else {
@@ -98,7 +81,7 @@ public class AddSushiActivity extends AppCompatActivity {
             }
         }));
 
-        compositeSubscription.add(priceObservable.subscribe(new Subscriber<CharSequence>() {
+        addSubscription(priceObservable.subscribe(new Subscriber<CharSequence>() {
             @Override
             public void onCompleted() {
             }
@@ -110,46 +93,23 @@ public class AddSushiActivity extends AppCompatActivity {
             @Override
             public void onNext(CharSequence price) {
                 try {
-                    sushi.setPrice(Integer.parseInt(price.toString()));
+                    sushiMaker.setPrice(Integer.parseInt(price.toString()));
                     priceTextInputLayout.setError(null);
                 } catch (NumberFormatException ignore) {
                     priceTextInputLayout.setError(priceErrorMessage);
                 }
             }
         }));
-
-        compositeSubscription.add(Observable.combineLatest(nameObservable, priceObservable,
-                new Func2<CharSequence, CharSequence, Boolean>() {
-                    @Override
-                    public Boolean call(CharSequence name, CharSequence price) {
-                        try {
-                            int ignore = Integer.parseInt(price.toString());
-                            return name != null && name.length() > 0;
-                        } catch (NumberFormatException ignore) {
-                            return false;
-                        }
-                    }
-                })
-                .subscribe(new Subscriber<Boolean>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onNext(Boolean aBoolean) {
-                        canSave = aBoolean;
-                    }
-                }));
     }
 
     @Override
-    protected void onPause() {
-        compositeSubscription.clear();
-        super.onPause();
+    public int getContentViewLayout() {
+        return R.layout.activity_add_sushi;
+    }
+
+    @Override
+    public int getToolbarId() {
+        return R.id.add_sushi_toolbar;
     }
 
     @Override
@@ -161,8 +121,8 @@ public class AddSushiActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_sushi_input_complete) {
-            if (canSave) {
-                setSushiResult(sushi);
+            if (sushiMaker.canMake()) {
+                setSushiResult(sushiMaker);
                 finish();
             }
             return true;
@@ -170,13 +130,14 @@ public class AddSushiActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setSushiResult(Sushi sushi) {
-        if (sushi != null) {
-            Intent data = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(BUNDLEKEY_SUSHI_MODEL, sushi);
-            data.putExtras(bundle);
-            setResult(RESULT_OK, data);
-        }
+    /**
+     * 寿司モデルを呼び出し元に返す.
+     */
+    private void setSushiResult(@NonNull Sushi sushi) {
+        Intent data = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BUNDLE_KEY_SUSHI_MODEL, sushi);
+        data.putExtras(bundle);
+        setResult(RESULT_OK, data);
     }
 }

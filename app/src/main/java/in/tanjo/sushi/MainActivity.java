@@ -8,10 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,11 +23,11 @@ import in.tanjo.sushi.adapter.NavigationAdapter;
 import in.tanjo.sushi.listener.OnRecyclerViewAdapterItemClickListener;
 import in.tanjo.sushi.model.AbsNoteModel;
 import in.tanjo.sushi.model.CountableSushi;
-import in.tanjo.sushi.model.NoteManager;
 import in.tanjo.sushi.model.Note;
+import in.tanjo.sushi.model.NoteManager;
 import in.tanjo.sushi.model.Sushi;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AbsActivity {
 
     @BindView(R.id.main_coordinatorlayout)
     CoordinatorLayout coordinatorLayout;
@@ -39,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.main_recycler_view)
     RecyclerView mMainRecyclerView;
-
-    @BindView(R.id.main_toolbar)
-    Toolbar mToolbar;
 
     @BindView(R.id.main_floating_action_button)
     FloatingActionButton mFloatingActionButton;
@@ -59,26 +54,43 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    public int getContentViewLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    public int getToolbarId() {
+        return R.id.main_toolbar;
+    }
+
     /**
      * イニシャライザー
      */
     private void init() {
         mNoteManager = new NoteManager(this);
-
-        setSupportActionBar(mToolbar);
-        mToolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mDrawerLayout.openDrawer(mNavigationRecyclerView);
-            }
-        });
-
+        initNavigation();
         mMainRecyclerView.setHasFixedSize(true);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         updateMainAdapter();
 
         initNavigaitonRecyclerView();
+    }
+
+    /**
+     * ナビゲーションを初期化
+     */
+    private void initNavigation() {
+        if (getToolbar() == null) {
+            return;
+        }
+        getToolbar().setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(mNavigationRecyclerView);
+            }
+        });
     }
 
     private void updateMainAdapter() {
@@ -251,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Bundle bundle = data.getExtras();
         if (bundle != null) {
-            Sushi sushi = (Sushi) bundle.getSerializable(AddSushiActivity.BUNDLEKEY_SUSHI_MODEL);
+            Sushi sushi = (Sushi) bundle.getSerializable(AddSushiActivity.BUNDLE_KEY_SUSHI_MODEL);
             if (sushi != null) {
                 addItem(new CountableSushi(sushi));
                 snackbar(sushi.getName() + "を追加しました");
