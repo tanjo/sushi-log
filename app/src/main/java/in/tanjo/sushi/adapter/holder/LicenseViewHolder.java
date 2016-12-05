@@ -49,15 +49,15 @@ public class LicenseViewHolder extends RecyclerView.ViewHolder {
     public void bind(License license, int position) {
         this.position = position;
         ButterKnife.apply(cardView, VISIBILITY, license != null);
-        ButterKnife.apply(nameView, VISIBILITY, license != null && !Strings.isNullOrEmpty(license.getName()));
-        ButterKnife.apply(copyrightView, VISIBILITY, license != null && !Strings.isNullOrEmpty(license.toCopyright()));
-        ButterKnife.apply(licenseView, VISIBILITY, license != null && !Strings.isNullOrEmpty(license.toLicense()));
         if (license == null) {
             nameView.setText("");
             copyrightView.setText("");
             licenseView.setText("");
             return;
         }
+        ButterKnife.apply(nameView, VISIBILITY, !Strings.isNullOrEmpty(license.getName()));
+        ButterKnife.apply(copyrightView, VISIBILITY, !Strings.isNullOrEmpty(license.toCopyright()));
+        ButterKnife.apply(licenseView, VISIBILITY, !Strings.isNullOrEmpty(license.toLicense()));
         nameView.setText(license.getName());
         copyrightView.setText(license.toCopyright());
         licenseView.setText(license.toLicense());
