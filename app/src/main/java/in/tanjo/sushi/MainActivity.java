@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.PopupMenu;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.tanjo.sushi.adapter.MainAdapter;
 import in.tanjo.sushi.adapter.NavigationAdapter;
@@ -49,8 +48,6 @@ public class MainActivity extends AbsActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
         init();
     }
 
@@ -69,18 +66,17 @@ public class MainActivity extends AbsActivity {
      */
     private void init() {
         mNoteManager = new NoteManager(this);
-        initNavigation();
+        initToolbar();
         mMainRecyclerView.setHasFixedSize(true);
         mMainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         updateMainAdapter();
-
         initNavigaitonRecyclerView();
     }
 
     /**
      * ナビゲーションを初期化
      */
-    private void initNavigation() {
+    private void initToolbar() {
         if (getToolbar() == null) {
             return;
         }
@@ -296,14 +292,17 @@ public class MainActivity extends AbsActivity {
                 updateMainAdapter();
                 mNavigationRecyclerView.getAdapter().notifyDataSetChanged();
                 break;
-            case R.id.action_settings:
-                snackbar("設定は開発中です");
-                break;
+//            case R.id.action_settings:
+//                snackbar("設定は開発中です");
+//                break;
             case R.id.action_note_edit:
                 EditNoteActivity.startActivityWithNoteObjectAndRequestCode(this, mNoteManager.getActiveNote());
                 break;
             case R.id.action_oaiso:
                 ResultActivity.startActivityWithNoteObject(this, mNoteManager.getActiveNote());
+                break;
+            case R.id.action_license:
+                LicenseActivity.startActivity(this);
                 break;
             default:
                 break;

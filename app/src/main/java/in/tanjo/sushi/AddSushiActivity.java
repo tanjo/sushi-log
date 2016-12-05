@@ -1,5 +1,7 @@
 package in.tanjo.sushi;
 
+import com.google.common.base.Strings;
+
 import com.jakewharton.rxbinding.widget.RxTextView;
 
 import android.app.Activity;
@@ -73,7 +75,7 @@ public class AddSushiActivity extends AbsActivity {
             @Override
             public void onNext(CharSequence charSequence) {
                 sushiMaker.setName(charSequence.toString());
-                if (charSequence.length() == 0) {
+                if (Strings.isNullOrEmpty(charSequence.toString())) {
                     nameTextInputLayout.setError(nameErrorMessage);
                 } else {
                     nameTextInputLayout.setError(null);
