@@ -14,7 +14,7 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"
             android:orientation="vertical"
             android:padding="16dp"
@@ -31,6 +31,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/sushi_name"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:maxLines="1"
                     />
 
         </android.support.design.widget.TextInputLayout>
@@ -48,10 +51,13 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/sushi_price"
                     android:inputType="numberDecimal"
+                    android:lines="1"
+                    android:maxLines="1"
                     />
 
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
+
 
 </RelativeLayout>

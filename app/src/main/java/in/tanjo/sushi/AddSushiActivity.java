@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -73,9 +74,9 @@ public class AddSushiActivity extends AbsActivity {
             }
 
             @Override
-            public void onNext(CharSequence charSequence) {
-                sushiMaker.setName(charSequence.toString());
-                if (Strings.isNullOrEmpty(charSequence.toString())) {
+            public void onNext(CharSequence name) {
+                sushiMaker.setName(name.toString());
+                if (Strings.isNullOrEmpty(name.toString())) {
                     nameTextInputLayout.setError(nameErrorMessage);
                 } else {
                     nameTextInputLayout.setError(null);
