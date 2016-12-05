@@ -53,7 +53,6 @@ public class LicenseViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.apply(copyrightView, VISIBILITY, license != null && !Strings.isNullOrEmpty(license.toCopyright()));
         ButterKnife.apply(licenseView, VISIBILITY, license != null && !Strings.isNullOrEmpty(license.toLicense()));
         if (license == null) {
-            cardView.setVisibility(View.GONE);
             nameView.setText("");
             copyrightView.setText("");
             licenseView.setText("");
